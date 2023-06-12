@@ -1,0 +1,46 @@
+body {
+    background-color: black;
+}
+
+.main {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+
+}
+
+.main h1 {
+    font-size: 3.5rem;
+    color: #fff;
+    font-weight: 700;
+    margin: 0;
+}
+
+.main h3 {
+    font-size: 1.2rem;
+    color: #fff;
+    font-weight: 400;
+}
+
+.main .cta-btn {
+    border: none;
+    height: 5em;
+    width: 15em;
+    background-color: #000;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 4px;
+    transition: all 0.2s ease-in-out;
+
+}
+
+.main .cta-btn:hover {
+    background-color: #fff;
+    color: #000;
+}
