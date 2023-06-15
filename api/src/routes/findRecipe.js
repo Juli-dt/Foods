@@ -1,25 +1,29 @@
 
-const { Router } = require("express");
-const router = Router();
-const axios = require("axios");
-const { getAllRecipes, recipeQuery, getApiInfo } = require("../controllers/recipeGetter");
+const express = require('express');
+const router = express.Router();
+const { getAllRecipes } = require("../controllers/recipeGetter");
 const { Recipe, Diets } = require("../db");
 
-router.get('/', getApiInfo);
+router.get('/', getAllRecipes);
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req, res, next) => {
     try {
         const { id } = req.params;
-        const getRecipeById = await getAllRecipes();
-        const recipeId = getRecipeById.find((e) => e.id == id);
-        if (recipeId) {
-            res.status(200).json(recipeId);
+        const allRecipes = await getAllRecipes(req, res);
+        // console.log(allRecipes)
+        const recipe = allRecipes.find((recipe) => recipe.id === parseInt(id));
+        if (recipe) {
+            res.status(200).json(recipe);
         } else {
-            res.status(404).send('We could not find that ID. But do not fret, try again');
+            const error = new Error('We could not find that ID. But do not fret, try again');
+            error.status = 404;
+            throw error;
         }
     } catch (error) {
-        res.status(500).send('Oops! Something went wrong. It is not your fault, I spilled coffee on my laptop')
+        next(error);
     }
-});
+})
+
+
 
 module.exports = router;

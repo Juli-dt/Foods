@@ -1,11 +1,12 @@
 const axios = require('axios')
-const { Recipe, Diets } = require('../db')
+const { recipe, diets } = require('../db');
 const { Sequelize } = require('sequelize')
 const { URL, API_KEY } = process.env
 const fullURL = `${URL}&apiKey=${API_KEY}&number=100`
 
 const getApiInfo = async () => {
-    const apiUrl = axios.get(fullURL)
+    const apiUrl = await axios.get(fullURL)
+    // console.log(apiUrl.data.results);
     const apiInfo = await apiUrl.data.results.map(e => {
         return {
             id: e.id,
@@ -21,9 +22,9 @@ const getApiInfo = async () => {
     return apiInfo
 }
 const getDbInfo = async () => {
-    return await Recipe.findAll({
+    return await recipe.findAll({
         include: {
-            model: Diets,
+            model: diets,
             attributes: ['name'],
             through: {
                 attributes: []
@@ -32,12 +33,13 @@ const getDbInfo = async () => {
     });
 };
 
-const getAllRecipes = async () => {
+const getAllRecipes = async (req , res) => {
     const apiInfo = await getApiInfo();
     const dbInfo = await getDbInfo();
     const allInfo = apiInfo.concat(dbInfo);
-    return allInfo;
-};
+    // console.log(allInfo);
+    return res.status(200).json(allInfo);
+}
 
 const recipeQuery = async (req, res) => {
     const { name } = req.query;
