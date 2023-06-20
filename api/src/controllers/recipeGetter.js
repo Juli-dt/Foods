@@ -44,7 +44,7 @@ const getAllRecipes = async (req , res) => {
 const recipeQuery = async (req, res) => {
     const { name } = req.query;
     const recipesTotal = await getAllRecipes();
-    console.log(recipesTotal)
+    // console.log(recipesTotal)
 
     if (name) {
         let recipeName = await recipesTotal.filter((e) => e.title.toLowerCase().includes(name.toLowerCase()));
@@ -55,8 +55,23 @@ const recipeQuery = async (req, res) => {
         res.status(200).json(recipesTotal);
     }
 };
+const getId = async ( id ) => {
+    try {
+        const response = await axios.get(`https://api.spoonacular.com/recipes/${id}/information`,
+        {
+            params: {
+                apiKey: API_KEY,
+                id: id
+            }
+        });
+        return response.data
+    } catch (error) {
+        return error.message
+    }
+}
 
 module.exports = {
+    getId,
     getApiInfo,
     getDbInfo,
     getAllRecipes,

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getRecipesFunc, fltrByDiets, fltrByTitle, fltrByPts, getRecipesByTitleFunc } from "../../redux/actions/index";
+import { getRecipesFunc, fltrByDiets, fltrByTitle, fltrByPts, getRecipesName } from "../../redux/actions/index";
 import Card from "../Card/Card";
 import Paging from "../Paging/Paging";
 import "./Home.css";
@@ -10,7 +10,7 @@ const Home = () => {
     const dispatch = useDispatch();
     const allRecipes = useSelector((state) => state.recipes);
 
-    const [search, setSearch] = useState('');
+    const [search, setSearch] = useState(''); // SearchBar
     const [orden, setOrden] = useState('');
     const [order, setOrder] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
@@ -21,7 +21,7 @@ const Home = () => {
 
     const webPaging = (pageNumber) => {
         setCurrentPage(pageNumber);
-    }
+    };
 
     useEffect(() => {
         dispatch(getRecipesFunc());
@@ -51,8 +51,8 @@ const Home = () => {
     }
 
     function handleSubmit(e) {
-        e.preventDefault();
-        dispatch(getRecipesByTitleFunc(search));
+        e.preventDefault(e);
+        dispatch(getRecipesName(search));
         setSearch('');
     }
 
@@ -66,8 +66,8 @@ const Home = () => {
                 <div className="wrapper">
                     <div className="navbar">
                         <div className="search_bar">
-                            <form onSubmit={handleSubmit}>
-                                <input type="text" placeholder="look up a recipe" value={search} onChange={handleInputName} />
+                            <form onSubmit={(e) => { handleSubmit(e) }}>
+                                <input type="text" placeholder="look up a recipe" value={search} onChange={(e) => { handleInputName(e) }}></input>
                                 <button type="submit">Search</button>
                             </form>
                         </div>
@@ -75,22 +75,22 @@ const Home = () => {
                             <Link to="/recipes">
                                 <button className="create_recipe_btn">Create New Recipe</button>
                             </Link>
-                            <button onClick={handleOnClick} className="refresh_btn">Refresh</button>
+                            <button onClick={e => handleOnClick(e)} className="refresh_btn">Refresh</button>
                         </div>
                         <div>
-                            <select onChange={handleSort}>
+                            <select onChange={e => handleSort(e)}>
                                 <option value="asc">Sort A-Z</option>
                                 <option value="des">Sort Z-A</option>
                             </select>
                         </div>
                         <div>
-                            <select onChange={handlePts}>
+                            <select onChange={e => handlePts(e)}>
                                 <option value="highlow">Rating High-Low</option>
                                 <option value="lowhigh">Rating Low-High</option>
                             </select>
                         </div>
                         <div>
-                            <select onChange={handleFltrDietType}>
+                            <select onChange={e => handleFltrDietType(e)}>
                                 <option value="All">All recipes</option>
                                 <option value="gluten free">Gluten Free</option>
                                 <option value="ketogenic">Ketogenic</option>
@@ -108,14 +108,15 @@ const Home = () => {
                         <Paging recipesPerPage={recipesPerPage} allRecipes={allRecipes.length} pagingFunc={webPaging} />
                     </div>
                     <div className="card-container">
-                        {currentRecipes?.map((recipe) => (
+                        {console.log(currentRecipes)};
+                        {currentRecipes.map(recipe => (
                             <Link to={`/recipes/${recipe.id}`} key={recipe.id}>
                                 <Card
                                     id={recipe.id}
                                     title={recipe.title}
-                                    image={recipe.image}
-                                    dietTypes={recipe.dietTypes}
-                                />
+                                    img={recipe.img}
+                                    diets={recipe.diets}
+                                    />
                             </Link>
                         ))}
                     </div>

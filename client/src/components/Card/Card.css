@@ -1,3 +1,6 @@
+
+
+
 .card-wrapper {
     height: 425px;
     width: 500px;
@@ -7,9 +10,9 @@
 .card-wrapper .card-info {
     height: 100%;
     width: 100%;
-    background-color: #fff;
+    background-color: #ffffff;
     border-radius: .3em;
-    border: 2px solid #000;
+    border: 10px solid #000000;
 }
 
 .card-wrapper .card-info .card_card {
@@ -22,25 +25,29 @@
 
 .card-wrapper .card-info h3 {
     font-size: 1.5em;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 700;
+    font-family: Verdana, Geneva, sans-serif;
+    font-weight: 400;
     color: #333333;
 }
 
 .card-wrapper .card-info img {
-    width: 200px;
+    width: 300px;
+    height: 500px;
     border-top-left-radius: .5em;
     border-bottom-left-radius: .5em;
+    border-top-right-radius: .5em;
+    border-bottom-right-radius: .5em;
     margin-left: 6px;
-    max-height: 200px;
+    max-height: 200px; 
 }
 
-.card-wrapper .card-info .card-diets {
+.card-diets {
     display: inline-block;
-    background-color: #000;
-    color: #fff;
+    background-color: #0f17ad;
+    color: #ffffff;
     border-top-right-radius: .3em;
     border-bottom-right-radius: .3em;
     font-family: 'Poppins', sans-serif;
-    font-weight: 400;
+    font-weight: 1000;
+    padding: 50px 100px;
 }

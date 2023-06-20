@@ -69,6 +69,22 @@ const rootReducer = (state = initialState, { type, payload }) => {
                 ...state,
                 recipes: orderPts
             }
+        case 'ORDER_BY_NAME':
+            const recipesSorted = payload === 'asc' ?
+                state.recipes.sort((a, b) => {
+                    if (a.name > b.name) return 1;
+                    if (b.name > a.name) return -1;
+                    return 0;
+                }) :
+                state.recipes.sort((a, b) => {
+                    if (a.name > b.name) return -1;
+                    if (b.name > a.name) return 1;
+                    return 0;
+                });
+            return {
+                ...state,
+                recipes: recipesSorted
+            }
         case 'GET_BY_TITLE':
             return {
                 ...state,

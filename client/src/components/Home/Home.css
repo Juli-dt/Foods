@@ -1,6 +1,8 @@
-
-.wrapper {
-    background-color: #fff;
+body {
+    background-image: url('../../assets/formbkg2.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 .navbar {
